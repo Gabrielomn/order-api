@@ -18,8 +18,6 @@ export class PaymentService {
 
     //mocked result
     public async getResult(paymentData: PaymentInfoDTO, value: number): Promise<PaymentStatus>{
-        await this.oneSecond();
-
         if(this.fails(paymentData)){
             return {
                 status:false,
@@ -33,12 +31,6 @@ export class PaymentService {
         }
     }
 
-
-    private async oneSecond(): Promise<void> {
-        setTimeout(() => {
-            return Promise.resolve()
-        }, 1000)
-    }
 
     private fails(paymentData: PaymentInfoDTO): boolean{
         const failingCreditCards = ['1111-2222-3333-4444', '2222-2222-3333-4444', '3333-2222-3333-4444', '4444-2222-3333-4444']
