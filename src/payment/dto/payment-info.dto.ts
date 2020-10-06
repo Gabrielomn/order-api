@@ -1,5 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsArray, IsDateString, IsNumber, IsEnum } from 'class-validator';
-import { OrderState, Item } from '../../database/models/order.schema'; 
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PaymentInfoDTO {

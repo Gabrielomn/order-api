@@ -4,7 +4,6 @@ import { CreateOrderDTO } from './dto/create-order.dto';
 import { UpdateOrderDTO } from './dto/update-order.dto';
 import { PaymentInfoDTO } from '../payment/dto/payment-info.dto';
 import { OrderDocument } from 'src/database/models/order.schema';
-import { ApiImplicitBody } from 'swagger-ui-express';
 
 @Controller('order')
 export class OrderController {

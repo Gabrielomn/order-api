@@ -1,4 +1,3 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema } from 'mongoose';
 
 export type OrderDocument = Order & Document;
