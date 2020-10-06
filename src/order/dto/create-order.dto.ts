@@ -1,17 +1,16 @@
-import { IsString, IsNotEmpty, IsOptional, IsArray, IsDateString, IsNumber, IsEnum } from 'class-validator';
-import { OrderState, Item } from '../../database/models/order.schema'; 
+import { IsNotEmpty, IsArray, IsNumber } from 'class-validator';
+import { Item } from '../../database/models/order.schema'; 
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOrderDTO {
 
     @IsNumber()
     @IsNotEmpty()
+    @ApiProperty()
     value: number;
-
-    // @IsEnum(OrderState)
-    // @IsNotEmpty()
-    // status: OrderState;
 
     @IsArray()
     @IsNotEmpty()
+    @ApiProperty()
     items: Item[];
 }

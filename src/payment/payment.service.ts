@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PaymentInfoDTO } from './dto/payment-info.dto';
 import { PaymentStatus } from './types/payment-status';
+
 @Injectable()
 export class PaymentService {
 
@@ -11,11 +12,11 @@ export class PaymentService {
         return this.getResult(paymentData, value)
     }
 
-    public validate(paymentData: PaymentInfoDTO): void{
+    private validate(paymentData: PaymentInfoDTO): void{
         return;
     }
 
-
+    //mocked result
     public async getResult(paymentData: PaymentInfoDTO, value: number): Promise<PaymentStatus>{
         await this.oneSecond();
 
@@ -28,18 +29,18 @@ export class PaymentService {
 
         return {
             status: true,
-            message: "Payment was a sucess"
+            message: "Payment was a success"
         }
     }
 
 
-    public async oneSecond(){
+    private async oneSecond(): Promise<void> {
         setTimeout(() => {
             return Promise.resolve()
         }, 1000)
     }
 
-    public fails(paymentData: PaymentInfoDTO): boolean{
+    private fails(paymentData: PaymentInfoDTO): boolean{
         const failingCreditCards = ['1111-2222-3333-4444', '2222-2222-3333-4444', '3333-2222-3333-4444', '4444-2222-3333-4444']
         return failingCreditCards.includes(paymentData.creditCard);
     }
