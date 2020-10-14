@@ -20,7 +20,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-      - name: CD
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+      - name: npm install, lint and test
         run: |
           npm install
           npm run test:e2e
