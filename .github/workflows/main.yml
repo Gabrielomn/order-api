@@ -23,9 +23,13 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
-      - name: npm install, lint and test
+      - name: Tests
         run: |
           npm install
           npm run test:e2e
+          echo Tests looking good!
+      - name: Lint
+        run: |
+          npm install
           npm run lint
-          echo Looks good!
+          echo Lint looking good!
