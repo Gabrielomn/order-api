@@ -17,8 +17,8 @@ describe('AppController (e2e)', () => {
   });
 
   describe('order creation', () => {
-    it('/order (POST)', () => {
-      const order = request(app.getHttpServer())
+    it('/order (POST)', async () => {
+      const order = await request(app.getHttpServer())
         .post('/order')
         .send({
           "value": 122,
@@ -36,11 +36,11 @@ describe('AppController (e2e)', () => {
           ]
         })
         .expect(201)
-  
+        return order;
     });
 
-    it('/order (POST)', () => {
-      const order = request(app.getHttpServer())
+    it('/order (POST)', async () => {
+      const order = await request(app.getHttpServer())
         .post('/order')
         .send({
           "items":[
@@ -57,14 +57,14 @@ describe('AppController (e2e)', () => {
           ]
         })
         .expect(400)
-  
+      return order;
     });
   })
 
 
   describe('payment accepted', () => {
-    it('/order/pay/:id (PUT)', () => {
-      return request(app.getHttpServer())
+    it('/order/pay/:id (PUT)', async () => {
+      const result = await request(app.getHttpServer())
         .post('/order')
         .send({
           "value": 182,
@@ -91,10 +91,11 @@ describe('AppController (e2e)', () => {
           })
           .expect(200)
         })
+      return result
     });
 
-    it('/order/pay/:id (PUT)', () => {
-      return request(app.getHttpServer())
+    it('/order/pay/:id (PUT)', async () => {
+      const result = await request(app.getHttpServer())
         .post('/order')
         .send({
           "value": 112,
@@ -121,13 +122,14 @@ describe('AppController (e2e)', () => {
           })
           .expect(200)
         })
+        return result
     });
   })
 
 
   describe('payment should fail due to card rejection', () => {
-    it('/order/pay/:id (PUT)', () => {
-      return request(app.getHttpServer())
+    it('/order/pay/:id (PUT)', async () => {
+      const result = await request(app.getHttpServer())
         .post('/order')
         .send({
           "value": 182,
@@ -144,8 +146,8 @@ describe('AppController (e2e)', () => {
               }
           ]
         })
-        .expect(201).then((result) => {
-          return request(app.getHttpServer())
+        .expect(201).then(async (result) => {
+          const res = await request(app.getHttpServer())
           .put(`/order/pay/${result.body._id}`)
           .send({
               creditCard: "1111-2222-3333-4444",
@@ -153,11 +155,14 @@ describe('AppController (e2e)', () => {
               verificationDigits: 741
           })
           .expect(400)
+          return res
         })
+        return result
+
     });
 
-    it('/order/pay/:id (PUT)', () => {
-      return request(app.getHttpServer())
+    it('/order/pay/:id (PUT)', async () => {
+      const result = await request(app.getHttpServer())
         .post('/order')
         .send({
           "value": 112,
@@ -174,8 +179,8 @@ describe('AppController (e2e)', () => {
               }
           ]
         })
-        .expect(201).then((result) => {
-          return request(app.getHttpServer())
+        .expect(201).then(async (result) => {
+          const res = await request(app.getHttpServer())
           .put(`/order/pay/${result.body._id}`)
           .send({
               creditCard: "2222-2222-3333-4444",
@@ -183,7 +188,10 @@ describe('AppController (e2e)', () => {
               verificationDigits: 741
           })
           .expect(400)
+          return res
         })
+        return result
+
     });
   })
 });

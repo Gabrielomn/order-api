@@ -14,7 +14,9 @@ export class OrderService {
 
   create(createOrderDto: CreateOrderDTO) {
     const toCreate = {...createOrderDto, status: OrderState.PENDING}
-
+    if(!toCreate.value || !toCreate.status || !toCreate.items){
+      throw new BadRequestException('Something went wrong');
+    }
     return this.orderModel.create(toCreate);
   }
 

@@ -15,5 +15,5 @@ export class PaymentInfoDTO {
     @IsNumber()
     @IsNotEmpty()
     @ApiProperty()
-    public verificationDigits: Number;
+    public verificationDigits: number;
 }
